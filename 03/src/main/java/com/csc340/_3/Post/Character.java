@@ -33,7 +33,6 @@ public class Character {
 
     private LocalDate activeDate; 
 
-    // Constructors
     public Character() {
     }
 
@@ -47,7 +46,6 @@ public class Character {
         this.activeDate = activeDate;
     }
 
-    // Getters and Setters
     public Long getCharacterId() {
         return characterId;
     }
