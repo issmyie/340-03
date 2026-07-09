@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 public interface CharacterRepository extends JpaRepository<Character, Long> {
 
     List<Character> findByUniverse(String universe);
-    List<Character> findBySpecies(String power);
+    List<Character> findByPower(String power);
     List<Character> findByAge(int age);
 
     List<Character> findByNameContainingIgnoreCase(String name);

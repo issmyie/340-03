@@ -54,9 +54,8 @@ public class CharacterService {
     public List<Character> getCharactersByCategory(String category, String value) {
         return switch (category.toLowerCase()) {
             case "universe" -> characterRepository.findByUniverse(value);
-            case "species"  -> characterRepository.findBySpecies(value);
+            case "power"  -> characterRepository.findByPower(value);
             case "age"      -> characterRepository.findByAge(Integer.parseInt(value));
-            // add more cases if you add more fields
             default -> throw new IllegalArgumentException("Unsupported category: " + category);
         };
     }
