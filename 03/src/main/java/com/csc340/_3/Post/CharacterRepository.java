@@ -13,5 +13,5 @@ public interface CharacterRepository extends JpaRepository<Character, Long> {
     List<Character> findBySpecies(String power);
     List<Character> findByAge(int age);
 
-    List<Character> findByNameContainingIgnoreCase(String namePart);
+    List<Character> findByNameContainingIgnoreCase(String name);
 }
