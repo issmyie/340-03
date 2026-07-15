@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About — Character Gallery</title>
+
+   
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous" />
+
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+    <style>
+       
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #f0e6ef;
+            font-family: 'Optima', 'Segoe UI', sans-serif;
+            color: #4a3f5c;
+            line-height: 1.6;
+        }
+
+        /* ----- NAVBAR (same as index) ----- */
+        .navbar-custom {
+            background: linear-gradient(135deg, #9c89b8, #b8bedd) !important;
+            box-shadow: 0 4px 20px rgba(156, 137, 184, 0.25);
+            padding: 0.8rem 0;
+        }
+
+        .navbar-custom .navbar-brand {
+            color: #2d1f3a !important;
+            font-weight: 700;
+            font-size: 1.4rem;
+            letter-spacing: 0.5px;
+        }
+
+        .navbar-custom .navbar-brand i {
+            color: #f0a6ca;
+            font-size: 1.6rem;
+        }
+
+        .navbar-custom .nav-link {
+            color: #2d1f3a !important;
+            font-weight: 500;
+            padding: 0.5rem 1.2rem !important;
+            border-radius: 50px;
+            transition: all 0.25s ease;
+        }
+
+        .navbar-custom .nav-link:hover,
+        .navbar-custom .nav-link.active {
+            background-color: rgba(240, 166, 202, 0.4);
+            color: #2d1f3a !important;
+            transform: scale(1.02);
+        }
+
+        .navbar-custom .nav-link i {
+            margin-right: 6px;
+        }
+
+        /* ----- ABOUT HERO ----- */
+        .about-hero {
+            background: linear-gradient(135deg, #efc3e6 0%, #f0e6ef 50%, #b8bedd 100%);
+            padding: 3.5rem 0 3rem;
+            border-radius: 0 0 3.5rem 3.5rem;
+            margin-bottom: 3rem;
+            box-shadow: 0 8px 28px rgba(156, 137, 184, 0.15);
+        }
+
+        .about-hero h1 {
+            font-weight: 800;
+            color: #2d1f3a;
+        }
+
+        .about-hero h1 i {
+            color: #f0a6ca;
+        }
+
+        .about-hero .lead {
+            color: #4a3f5c;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* ----- CONTENT ----- */
+        .about-img {
+            border-radius: 2rem;
+            box-shadow: 0 16px 48px rgba(156, 137, 184, 0.15);
+            width: 100%;
+            max-height: 400px;
+            object-fit: cover;
+            border: 4px solid #ffffff;
+        }
+
+        .about-text {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            color: #4a3f5c;
+        }
+
+        .about-text strong {
+            color: #9c89b8;
+        }
+
+        .highlight-card {
+            background: #ffffff;
+            border-radius: 1.5rem;
+            padding: 2rem;
+            box-shadow: 0 8px 32px rgba(156, 137, 184, 0.06);
+            border: 1px solid #efc3e6;
+            height: 100%;
+            transition: transform 0.25s ease;
+        }
+
+        .highlight-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .highlight-card i {
+            color: #f0a6ca;
+            font-size: 2rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .highlight-card h5 {
+            color: #2d1f3a;
+            font-weight: 700;
+        }
+
+        .highlight-card p {
+            color: #5a4f6e;
+            font-size: 0.95rem;
+        }
+
+        /* ----- FOOTER ----- */
+        .footer {
+            background: linear-gradient(135deg, #9c89b8, #b8bedd);
+            color: #2d1f3a;
+            padding: 2rem 0;
+            margin-top: 4rem;
+            border-radius: 3rem 3rem 0 0;
+            box-shadow: 0 -4px 24px rgba(156, 137, 184, 0.15);
+        }
+
+        .footer a {
+            color: #2d1f3a;
+            font-weight: 500;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer a:hover {
+            color: #f0a6ca;
+            text-decoration: underline;
+        }
+
+        .footer small {
+            opacity: 0.7;
+            font-size: 0.85rem;
+        }
+
+        /* ----- RESPONSIVE ----- */
+        @media (max-width: 768px) {
+            .about-hero {
+                padding: 2.5rem 0 2rem;
+                border-radius: 0 0 2rem 2rem;
+            }
+            .about-text {
+                font-size: 1rem;
+            }
+            .highlight-card {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ========================================================== -->
+    <!--                     NAVIGATION                               -->
+    <!-- ========================================================== -->
+    <nav class="navbar navbar-expand-lg navbar-custom sticky-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="index.html">
+                <i class="fa-solid fa-mug-hot"></i> Character Gallery
+            </a>
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav"
+            aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="mainNav">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="index.html">
+                        <i class="fas fa-home"></i>Home
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="details.html">
+                        <i class="fas fa-user-circle"></i>Details
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="about.html">
+                        <i class="fas fa-info-circle"></i>About
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="new-character-form.html">
+                        <i class="fas fa-plus-circle"></i>Add a Character
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- ========================================================== -->
+<!--                     ABOUT HERO                              -->
+<!-- ========================================================== -->
+<section class="about-hero">
+    <div class="container text-center">
+        <h1 class="display-4 fw-bold">
+            <i class="fas fa-info-circle me-2"></i>About This Project
+        </h1>
+        <p class="lead">A fan-made gallery.</p>
+    </div>
+</section>
+
+<!-- ========================================================== -->
+<!--                     MAIN CONTENT                            -->
+<!-- ========================================================== -->
+<div class="container">
+
+ 
+  <div id="row" class="row g-5 align-items-center mb-5">
+  <div id="col-lg-6" class="col-lg-6">
+    <img src="assignmentsnoopy.jpg" class="about-img" alt="Snoopy" />
+  </div>
+  <div id="col-lg-6" class="col-lg-6">
+    <div class="about-text">
+      <h3 class="fw-bold" style="color: #2d1f3a;">
+        <i class="fas fa-pen-fancy me-2" style="color: #f0a6ca;"></i>Why This Gallery?
+      </h3>
+      <p>
+        The purpose of this gallery is to help you catch a glimpse of my beautiful cats, rob the bunny and bob the old guy.
+      </p>
+    </div>
+  </div>
+</div>
+
+    <!-- Design Choices Cards -->
+    <div class="row g-4 mt-4">
+        <div class="col-md-4">
+            <div class="highlight-card text-center">
+                <i class="fas fa-palette"></i>
+                <h5>Color Palette</h5>
+                <p>
+                    I wanted light pastels for a dreamy-ish look — <strong>#9c89b8</strong> (lavender), 
+                    <strong>#f0a6ca</strong> (blush), <strong>#efc3e6</strong> (soft pink), 
+                    <strong>#f0e6ef</strong> (cream), and <strong>#b8bedd</strong> (periwinkle). 
+                   These are all the colors that I used!
+                </p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="highlight-card text-center">
+                <i class="fas fa-font"></i>
+                <h5>Typography</h5>
+                <p>
+                    I used <strong>Optima</strong>, I think it's a pretty font. 
+                </p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="highlight-card text-center">
+                <i class="fas fa-cubes"></i>
+                <h5>Layout &amp; Interaction</h5>
+                <p>
+                   I used a pretty basic design to make it easy on the eyes and to navigate. 
+                  
+                </p>
+            </div>
+        </div>
+    </div>
+
+  
+    <div class="row mt-5">
+        <div class="col-lg-8 mx-auto">
+            <div class="p-4" style="background: #ffffff; border-radius: 2rem; border-left: 6px solid #f0a6ca; box-shadow: 0 4px 16px rgba(156,137,184,0.06);">
+                <p class="mb-0" style="font-style: italic; color: #4a3f5c;">
+                    <i class="fas fa-quote-left me-2" style="color: #9c89b8;"></i>
+                   I love my cats a lot and wanted any excuse to rave about them, especially Minty. 
+                    <span style="display: block; margin-top: 0.5rem; font-style: normal; font-weight: 600; color: #2d1f3a;">
+                        — Minty's biggest fan
+                    </span>
+                </p>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- ========================================================== -->
+<!--                     FOOTER                                  -->
+<!-- ========================================================== -->
+<footer class="footer">
+    <div class="container text-center">
+        <p class="mb-1">
+            <i class="fas fa-mug-hot me-2"></i>
+            Character Gallery &bull;
+            <a href="about.html">About</a> &bull;
+            <a href="new-character-form.html">Add a Character</a>
+        </p>
+        <small>CSC 340 Assignment!</small>
+    </div>
+</footer>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+crossorigin="anonymous">
+</script>
+
+</body>
+</html>
