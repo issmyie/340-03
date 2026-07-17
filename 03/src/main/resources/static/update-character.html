@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Add a Character</title>
+    <title>Update Character</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
     <style>
-        /* reuse create form styles (same as before) */
+        /* reuse create form styles */
         * { margin:0; padding:0; box-sizing:border-box; }
         body { background-color:#f0e6ef; font-family:'Optima','Segoe UI',sans-serif; color:#4a3f5c; line-height:1.6; }
         .navbar-custom { background: linear-gradient(135deg, #9c89b8, #b8bedd) !important; box-shadow: 0 4px 20px rgba(156,137,184,0.25); padding:0.8rem 0; }
@@ -51,7 +51,7 @@
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                     <li class="nav-item"><a class="nav-link" href="/index.html"><i class="fas fa-home"></i>Home</a></li>
                     <li class="nav-item"><a class="nav-link" href="/about.html"><i class="fas fa-info-circle"></i>About</a></li>
-                    <li class="nav-item"><a class="nav-link active" aria-current="page" href="/new-character-form.html"><i class="fas fa-plus-circle"></i>Add a Character</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/new-character-form.html"><i class="fas fa-plus-circle"></i>Add a Character</a></li>
                 </ul>
             </div>
         </div>
@@ -60,18 +60,19 @@
     <!-- HERO -->
     <section class="form-hero">
         <div class="container text-center">
-            <h1 class="display-4 fw-bold"><i class="fas fa-plus-circle me-2"></i>Add a Character</h1>
-            <p class="lead">Tell us about your favorite character.</p>
+            <h1 class="display-4 fw-bold"><i class="fas fa-edit me-2"></i>Update Character</h1>
+            <p class="lead" id="updateSubtitle">Loading...</p>
         </div>
     </section>
 
     <!-- FORM -->
     <div class="container">
         <div class="form-card">
-            <form id="createForm">
+            <form id="updateForm">
+                <input type="hidden" id="charId" name="characterId" />
                 <div class="row g-4">
                     <div class="col-md-6">
-                        <label for="name" class="form-label">Character Name <span class="required-star">*</span></label>
+                        <label for="name" class="form-label">Name <span class="required-star">*</span></label>
                         <input type="text" class="form-control" id="name" name="name" required />
                     </div>
                     <div class="col-md-6">
@@ -81,7 +82,7 @@
                 </div>
                 <div class="row g-4 mt-2">
                     <div class="col-md-6">
-                        <label for="power" class="form-label">Power / Role</label>
+                        <label for="power" class="form-label">Power</label>
                         <input type="text" class="form-control" id="power" name="power" />
                     </div>
                     <div class="col-md-6">
@@ -98,8 +99,8 @@
                     <textarea class="form-control" id="description" name="description" rows="4" required></textarea>
                 </div>
                 <div class="mt-5 d-flex flex-wrap gap-3 justify-content-center">
-                    <button type="submit" class="btn btn-submit"><i class="fas fa-save"></i> Add Character</button>
-                    <button type="reset" class="btn btn-reset"><i class="fas fa-undo-alt"></i> Clear All</button>
+                    <button type="submit" class="btn btn-submit"><i class="fas fa-save"></i> Update</button>
+                    <a href="#" id="cancelLink" class="btn btn-reset"><i class="fas fa-times"></i> Cancel</a>
                 </div>
             </form>
             <div id="formMessage" class="mt-3 text-center"></div>
@@ -119,7 +120,34 @@
             crossorigin="anonymous"></script>
 
     <script>
-        document.getElementById('createForm').addEventListener('submit', async function(e) {
+        const urlParams = new URLSearchParams(window.location.search);
+        const charId = urlParams.get('id');
+        if (!charId) {
+            document.querySelector('.container').innerHTML = '<p class="text-danger">No ID.</p>';
+            throw new Error('No ID');
+        }
+
+        async function loadCharacter() {
+            try {
+                const res = await fetch(`/api/characters/${charId}`);
+                if (!res.ok) throw new Error('Not found');
+                const c = await res.json();
+                document.getElementById('charId').value = c.characterId;
+                document.getElementById('name').value = c.name;
+                document.getElementById('universe').value = c.universe || '';
+                document.getElementById('power').value = c.power || '';
+                document.getElementById('age').value = c.age || 0;
+                document.getElementById('activeDate').value = c.activeDate || '';
+                document.getElementById('description').value = c.description || '';
+                document.getElementById('updateSubtitle').textContent = `Editing ${c.name}`;
+                document.getElementById('cancelLink').href = `details.html?id=${c.characterId}`;
+            } catch (e) {
+                console.error(e);
+                document.querySelector('.form-card').innerHTML = '<p class="text-danger">Error loading character.</p>';
+            }
+        }
+
+        document.getElementById('updateForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             const formData = new FormData(this);
             const activeDate = formData.get('activeDate');
@@ -131,26 +159,29 @@
                 activeDate: activeDate ? activeDate : null,
                 description: formData.get('description')
             };
+            const id = document.getElementById('charId').value;
 
             try {
-                const res = await fetch('/api/characters', {
-                    method: 'POST',
+                const res = await fetch(`/api/characters/${id}`, {
+                    method: 'PUT',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(character)
                 });
                 if (res.ok) {
-                    alert('Character created!');
-                    window.location.href = '/index.html';
+                    alert('Updated!');
+                    window.location.href = `details.html?id=${id}`;
                 } else {
                     const err = await res.text();
                     document.getElementById('formMessage').innerHTML = `<span class="text-danger">Error: ${err}</span>`;
-                    console.error('Server error:', err);
+                    console.error(err);
                 }
             } catch (e) {
                 console.error(e);
                 document.getElementById('formMessage').innerHTML = `<span class="text-danger">Network error.</span>`;
             }
         });
+
+        document.addEventListener('DOMContentLoaded', loadCharacter);
     </script>
 </body>
 </html>
