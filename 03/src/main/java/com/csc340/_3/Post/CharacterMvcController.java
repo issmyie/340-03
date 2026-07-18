@@ -58,7 +58,7 @@ public class CharacterMvcController {
     public String showUpdateForm(@PathVariable Long id, Model model) {
         Character character = characterService.getCharacterById(id);
         model.addAttribute("character", character);
-        return "character-update";   // character-update.ftlh
+        return "character-update";  
     }
 
     @PostMapping("/update")
@@ -80,7 +80,7 @@ public class CharacterMvcController {
                                    Model model) {
         List<Character> characters = characterService.getCharactersByCategory(category, value);
         model.addAttribute("characterList", characters);
-        return "character-list";   // reuse list template
+        return "character-list";   
     }
 
     @GetMapping("/search")
